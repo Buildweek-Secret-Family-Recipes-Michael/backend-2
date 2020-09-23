@@ -1,4 +1,4 @@
-import * as Knex from "knex";
+import * as Knex from "knex"
 
 
 export async function up(knex: Knex): Promise<void> {
@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     })
 
     await knex.schema.createTable("recipes", table => {
-        table.uuid("user_ID").unique().notNullable()
+        table.uuid("user_ID").notNullable().references("user_ID").inTable("user")
         table.uuid("recipe_ID").unique().notNullable().primary()
         table.text("name").notNullable()
         table.text("category")
@@ -19,14 +19,13 @@ export async function up(knex: Knex): Promise<void> {
         table.uuid("ingredient_ID").notNullable().unique().primary()
         table.text("name").notNullable()
         table.text("amount").notNullable()
-        table.uuid("recipe_ID").notNullable()
+        table.uuid("recipe_ID").notNullable().references("recipe_ID").inTable("recipes")
     })
 
     await knex.schema.createTable("instructions", table => {
         table.uuid("instruction_ID").notNullable().unique().primary()
         table.text("name").notNullable()
         table.integer("step").unique().notNullable()
-        table.uuid("recipe_ID")
     })
 
     await knex.schema.createTable("user_recipes", table => {
@@ -52,12 +51,13 @@ export async function up(knex: Knex): Promise<void> {
 
 export async function down(knex: Knex): Promise<void> {
     console.log("Dropping tables");
-    await knex.schema.dropTableIfExists("recipes_ingredients");
-    await knex.schema.dropTableIfExists("recipe_instructions");
-    await knex.schema.dropTableIfExists("user_recipes");
-    await knex.schema.dropTableIfExists("instructions");
-    await knex.schema.dropTableIfExists("ingredients");
-    await knex.schema.dropTableIfExists("recipes");
-    await knex.schema.dropTableIfExists("user");
+    await knex.schema.dropTableIfExists("recipe_ingredients")
+    await knex.schema.dropTableIfExists("recipe_instructions")
+    await knex.schema.dropTableIfExists("user_recipes")
+    await knex.schema.dropTableIfExists("ingredients")
+    await knex.schema.dropTableIfExists("instructions")
+    await knex.schema.dropTableIfExists("recipes")
+    await knex.schema.dropTableIfExists("user")
+
 }
 
