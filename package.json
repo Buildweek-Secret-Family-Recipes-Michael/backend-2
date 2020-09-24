@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node index.ts",
+    "server": "nodemon index.ts",
     "watch": "nodemon index.ts",
     "build": "tsc",
     "dev": "nodemon --exec ts-node index.ts"
