@@ -1,6 +1,6 @@
 import express, { Router } from "express"
 import * as userModel from "../models/user_model"
-import { restrict, validateUser } from "../middleware/user-middleware"
+import { restrict, validateUser, validateUpdate } from "../middleware/user-middleware"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
 import dotenv from "dotenv"
@@ -21,6 +21,7 @@ export const userRouter = express.Router()
 //     })
 // })
 
+//READ
 userRouter.get("/user", restrict(), async (req, res, next) => {
     try {
         res.json(await userModel.get())
@@ -29,6 +30,7 @@ userRouter.get("/user", restrict(), async (req, res, next) => {
     }
 })
 
+//CREATE
 userRouter.post("/register", validateUser(), async (req, res, next) => {
     try {
         const {username, password} = req.body
@@ -82,3 +84,19 @@ userRouter.post('/login', async (req, res, next) => {
         next(error)
     }
 })
+
+userRouter.put('/user/:id', restrict(), validateUpdate, async (req, res, next) => {
+    try {
+        const { username, password } = req.body
+        const updatedUser = {
+            username, 
+            password: await bcrypt.hash(password, 15),
+            user_ID: uuid.v4()
+        }
+        const newUpdatedUser = await userModel.update(updatedUser)
+        res.status(200).json(newUpdatedUser)
+    } catch (error) {
+        next(error)
+    }
+})
+
