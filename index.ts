@@ -1,30 +1,30 @@
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
+import cookieparser from "cookie-parser"
 
-//import routers here
+import { userRouter } from "./src/routers/user-router"
 
-const server = express()
+export const server = express()
 
 server.use(express.json())
 server.use(helmet())
 server.use(cors())
-//userouters
+server.use(cookieparser())
+server.use(userRouter)
 
 
-server.get('/', (req, res) => {
+server.get('/', async (req, res) => {
   res.json({ message: "Hello World "}) 
 })
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 4000
 
 server.listen(port, () => {
   console.log(`\n=== Server listening on port ${port} ===\n`)
 });
 
-// server.listen(process.env.PORT, () => {
-//   console.log("hello")
-// });
+
 
 
 
