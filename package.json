@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.ts",
+    "start": "node index.js",
     "server": "nodemon index.ts",
     "watch": "nodemon index.ts",
     "build": "tsc",
@@ -55,7 +55,7 @@
     "jest": "^26.4.2",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.5",
-    "node": "^12.14.0",
+    "node": "^14.12.0",
     "pg": "^8.3.3",
     "sqlite3": "^5.0.0",
     "supertest": "^4.0.2",

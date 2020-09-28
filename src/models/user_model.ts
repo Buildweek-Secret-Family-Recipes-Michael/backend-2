@@ -1,5 +1,5 @@
 import { db } from "../database/dbConfig"
-import uuid from "uuid-1345";
+import uuid from "uuid-1345"
 
 export interface spreadUserObject {
     username: string

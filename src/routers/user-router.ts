@@ -1,4 +1,4 @@
-import express, { Router } from "express"
+import express from "express"
 import * as userModel from "../models/user_model"
 import { restrict, validateUser, validateUpdate } from "../middleware/user-middleware"
 import jwt from "jsonwebtoken"
