@@ -8,7 +8,8 @@
     "server": "nodemon index.ts",
     "watch": "nodemon index.ts",
     "dev": "nodemon --exec ts-node index.ts",
-    "test": "cross-env DB_ENV=testing jest --watch"
+    "test": "cross-env DB_ENV=testing jest --watch",
+    "build-ts" : "tsc"
   },
   "repository": {
     "type": "git",
