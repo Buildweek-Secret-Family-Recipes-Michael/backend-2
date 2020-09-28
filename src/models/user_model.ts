@@ -37,7 +37,7 @@ export async function create(user: spreadUserObject) {
 }
 
 export async function update(user: spreadUserObject) {
-    const id = user.user_ID
+    const id:any = user.user_ID
     await db("user").update(user).where("user_ID", id)
     return getById(id)
 }

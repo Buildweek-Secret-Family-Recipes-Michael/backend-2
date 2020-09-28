@@ -8,6 +8,14 @@ import uuid from "uuid-1345";
 dotenv.config()
 
 export const userRouter = express.Router()
+
+declare global {
+    namespace Express {
+        interface Request {
+            user_ID: string;
+        }
+    }
+}
 //this was just practice, try/catch works better with ts
 // userRouter.get("/user", (req, res) => {
 //     user.get()
@@ -91,7 +99,7 @@ userRouter.put('/user/:id', restrict(), validateUpdate, async (req, res, next) =
         const updatedUser = {
             username, 
             password: await bcrypt.hash(password, 15),
-            user_ID: uuid.v4()
+            user_ID: req.user_ID
         }
         const newUpdatedUser = await userModel.update(updatedUser)
         res.status(200).json(newUpdatedUser)
