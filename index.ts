@@ -2,6 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import cookieparser from "cookie-parser"
+import dotenv from "dotenv"
+dotenv.config()
 
 import { userRouter } from "./src/routers/user-router"
 
